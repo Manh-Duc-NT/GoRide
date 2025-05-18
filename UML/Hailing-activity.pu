@@ -1,0 +1,19 @@
+@startuml Hailing-activity
+
+start
+
+:Khách hàng nhập điểm đón/đến;
+: Hệ thống lấy vị trí khách hàng;
+repeat
+if (Tìm thấy tài xế?) then (có)
+    :Gửi thông báo đến tài xế;
+    else (không)
+    stop
+    endif
+repeat while (Tài xế chấp nhận) is (không)
+
+:Cập nhật trạng thái đơn hàng;
+:Xác nhận đơn hàng;
+stop
+
+@enduml

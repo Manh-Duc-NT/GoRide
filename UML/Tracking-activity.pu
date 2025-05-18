@@ -1,0 +1,20 @@
+@startuml Tracking-activity
+start
+
+:Khách hàng mở giao diện chuyến đi;
+
+:Ứng dụng gửi yêu cầu lấy vị trí tài xế;
+:Nhận vị trí hiện tại của tài xế;
+
+:Hiển thị bản đồ với lộ trình;
+
+repeat
+    :Cập nhật vị trí tài xế;
+    :Cập nhật hiển thị trên bản đồ;
+repeat while (Chuyến đi chưa kết thúc?) is (đúng)
+
+:Chuyến đi hoàn thành;
+:Ngừng cập nhật vị trí;
+
+stop
+@enduml

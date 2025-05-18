@@ -1,0 +1,24 @@
+@startuml Hailing-Sequence
+
+actor "Khách hàng/Tài xế" as User
+participant "UI (Ứng dụng di động)" as UI
+participant "Xử lý (Cloud Functions)" as XuLy
+participant "Database (Firestore/Realtime)" as Database
+
+User -> UI: Nhập điểm đón/đến, xác nhận (Khách hàng)
+UI -> XuLy: Gửi yêu cầu đặt xe
+XuLy -> Database: Lấy vị trí khách hàng (Google Maps API)
+Database -> XuLy: Trả về tọa độ
+XuLy -> Database: Tìm tài xế gần nhất
+Database -> XuLy: Trả về danh sách tài xế
+XuLy -> UI: Gửi thông báo đơn hàng (Tài xế)
+UI -> User: Hiển thị thông báo (Tài xế)
+
+User -> UI: Chấp nhận đơn (Tài xế)
+UI -> XuLy: Gửi xác nhận
+XuLy -> Database: Cập nhật trạng thái đơn hàng
+Database -> XuLy: Xác nhận cập nhật
+XuLy -> UI: Gửi thông tin tài xế (Khách hàng)
+UI -> User: Hiển thị thông tin tài xế (Khách hàng)
+
+@enduml

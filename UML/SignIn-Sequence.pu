@@ -1,0 +1,44 @@
+@startuml SignIn-Sequence
+
+actor "Khách hàng/Tài xế" as User
+participant "UI (Ứng dụng di động)" as UI
+participant "Xử lý (Cloud Functions)" as XuLy
+participant "Database (Firestore)" as Database
+
+User -> UI: Nhập thông tin đăng ký
+UI -> XuLy: Gửi thông tin đăng ký
+XuLy -> Database: Lưu thông tin đăng ký
+
+Database -> XuLy: Trả về trạng thái lưu thành công
+XuLy -> UI: Gửi OTP
+UI -> User: Hiển thị form nhập OTP
+
+User -> UI: Nhập OTP
+UI -> XuLy: Gửi OTP xác nhận
+XuLy -> Database: Xác minh OTP
+
+alt OTP hợp lệ
+    Database -> XuLy: Xác nhận OTP thành công
+    XuLy -> UI: Yêu cầu cung cấp CCCD
+    UI -> User: Hiển thị form nhập CCCD
+    
+    User -> UI: Cung cấp CCCD
+    UI -> XuLy: Gửi thông tin CCCD
+    XuLy -> Database: Lưu thông tin khách hàng
+    
+    alt CCCD hợp lệ
+        Database -> XuLy: Xác nhận lưu thành công
+        XuLy -> UI: Xác nhận đăng ký
+        UI -> User: Thông báo đăng ký thành công
+    else CCCD không hợp lệ
+        Database -> XuLy: Lưu thất bại
+        XuLy -> UI: Yêu cầu cung cấp lại CCCD
+    end
+    
+else OTP không hợp lệ
+    Database -> XuLy: Xác nhận OTP thất bại
+    XuLy -> UI: Yêu cầu gửi lại OTP
+    UI -> User: Yêu cầu gửi lại OTP
+end
+
+@enduml

@@ -1,0 +1,24 @@
+@startuml Pay-activity
+start
+
+: Tài xế xác nhận hoàn thành;
+: Thông báo yêu cầu thanh toán;
+repeat
+if ("Phương thức thanh toán?") then ([chuyển khoản])
+
+else ([tiền mặt])
+: Lưu dữ liệu thanh toán;
+: Hiển thị hoá đơn;
+stop
+endif
+
+: Gửi yêu cầu đến cổng thanh toán;
+
+repeat while (Thanh toán thành công?) is (không)
+
+
+: Lưu dữ liệu thanh toán;
+: Hiển thị hóa đơn;
+
+stop
+@enduml

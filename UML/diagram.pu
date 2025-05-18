@@ -1,0 +1,64 @@
+@startuml diagram
+skinparam classAttributeIconSize 0
+
+' Các lớp chính
+class User {
+  +id: String
+  +name: String
+  +phone: String
+  +email: String
+  +cccd: String
+}
+
+class Customer {
+  ' Kế thừa từ User
+}
+
+class Driver {
+  +licenseNumber: String
+}
+
+class Order {
+  +id: String
+  +pickupLocation: String
+  +dropoffLocation: String
+  +fare: Double
+  +status: String
+  +customerId: String
+  +driverId: String
+}
+
+class Location {
+  +userId: String
+  +latitude: Double
+  +longitude: Double
+  +timestamp: DateTime
+}
+
+class Payment {
+  +id: String
+  +orderId: String
+  +amount: Double
+  +method: String
+  +platformFee: Double
+}
+
+class Review {
+  +id: String
+  +orderId: String
+  +rating: Integer
+  +comment: String
+}
+
+' Kế thừa
+Customer -|> User
+Driver -|> User
+
+' Quan hệ giữa các lớp
+Order --> "1" Customer : đặt bởi
+Order --> "1" Driver : thực hiện bởi
+Location --> "1" User : cập nhật vị trí
+Payment --> "1" Order : liên kết
+Review --> "1" Order : phản hồi cho
+
+@enduml

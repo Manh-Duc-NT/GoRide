@@ -1,0 +1,27 @@
+@startuml admin-Sequence
+actor Admin
+participant "UI (Web admin)" as UI
+participant "Xử lý (Cloud Functions)" as Cloud
+participant "Database (Firestore/Storage)" as DB
+
+Admin -> UI : Đăng nhập, xem danh sách User
+UI -> Cloud : Yêu cầu danh sách User
+Cloud -> DB : Lấy dữ liệu User
+DB --> Cloud : Trả về danh sách
+Cloud --> UI : Hiển thị danh sách
+
+Admin -> UI : Xem thông tin User (CCCD, bằng lái, sđt...)
+UI -> Cloud : Yêu cầu giấy tờ
+Cloud -> DB : Lấy dữ liệu từ Storage
+DB --> Cloud : Trả về giấy tờ
+Cloud --> UI : Hiển thị giấy tờ
+
+Admin -> UI : Phê duyệt/từ chối tài xế
+UI -> Cloud : Gửi quyết định
+Cloud -> DB : Cập nhật trạng thái tài khoản
+DB --> Cloud : Xác nhận cập nhật
+
+Cloud -> UI : Gửi thông báo cho tài xế
+UI -> Admin : Hiển thị kết quả
+
+@enduml

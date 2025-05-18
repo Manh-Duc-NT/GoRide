@@ -1,0 +1,68 @@
+@startuml usecase
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+
+' Định nghĩa hệ thống
+rectangle "Hệ thống Ứng dụng Gọi Xe Thông Minh" {
+
+  ' Use Cases của Khách hàng
+  usecase "Đăng ký / Xác thực" as UC_Auth
+  usecase "Cập nhật vị trí" as UC_UpdateLocation
+  usecase "Đặt xe" as UC_KH_BookRide
+  usecase "Theo dõi hành trình" as UC_KH_TrackTrip
+  usecase "Thanh toán" as UC_KH_Payment
+  usecase "Đánh giá" as UC_KH_Rating
+  usecase "Xem lịch sử" as UC_KH_History
+  usecase "Liên lạc khẩn cấp" as UC_KH_Emergency
+
+
+  ' Use Cases của Tài xế
+  usecase "Đăng ký / Xác thực" as UC_Auth
+  usecase "Nhận đơn" as UC_TX_AcceptRide
+  usecase "Xem chi tiết hành trình" as UC_TX_TripDetails
+  usecase "Hoàn thành chuyến đi" as UC_TX_CompleteRide
+  usecase "Xem thu nhập / lịch sử" as UC_TX_Earnings
+
+  ' Use Cases của Admin
+  usecase "Đăng nhập" as UC_AD_Login
+  usecase "Quản lý người dùng" as UC_AD_UserMgmt
+  usecase "Xem thống kê / báo cáo" as UC_AD_Reports
+  usecase "Xử lý yêu cầu hỗ trợ" as UC_AD_Support
+}
+
+' Actors
+actor "Khách hàng" as Customer
+actor "Tài xế" as Driver
+actor "Admin" as Admin
+
+' Liên kết Actors với Use Cases
+Customer --> UC_Auth
+Customer --> UC_UpdateLocation
+Customer --> UC_KH_BookRide
+Customer --> UC_KH_TrackTrip
+Customer --> UC_KH_Payment
+Customer --> UC_KH_Rating
+Customer --> UC_KH_History
+Customer --> UC_KH_Emergency
+
+Driver --> UC_Auth
+Driver --> UC_TX_AcceptRide
+Driver --> UC_UpdateLocation
+Driver --> UC_TX_TripDetails
+Driver --> UC_TX_CompleteRide
+Driver --> UC_TX_Earnings
+
+Admin --> UC_AD_Login
+Admin --> UC_AD_UserMgmt
+Admin --> UC_AD_Reports
+Admin --> UC_AD_Support
+
+' Quan hệ include / extend
+UC_KH_BookRide --> UC_UpdateLocation : <<include>>
+UC_KH_TrackTrip <-- UC_KH_Emergency : <<extend>>
+UC_TX_TripDetails --> UC_UpdateLocation : <<include>>
+UC_TX_CompleteRide --> UC_UpdateLocation : <<include>>
+UC_TX_AcceptRide --> UC_UpdateLocation : <<include>>
+
+@enduml

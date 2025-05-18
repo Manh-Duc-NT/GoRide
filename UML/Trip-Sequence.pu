@@ -1,0 +1,25 @@
+@startuml Trip-Sequence
+actor "Tài xế" as Driver
+participant "UI (Ứng dụng di động)" as UI
+participant "Xử lý (Cloud Functions)" as Logic
+participant "Database (Firestore)" as DB
+
+Driver -> UI : Hiển thị thông báo
+UI -> Logic : Gửi thông báo chuyến xe mới
+
+Driver -> UI : Xem thông tin chuyến, chấp nhận
+UI -> Logic : Gửi xác nhận chấp nhận
+Logic -> DB : Cập nhật trạng thái chuyến xe
+DB --> Logic : Xác nhận cập nhật
+
+Driver -> UI : Cập nhật trạng thái (đón khách)
+UI -> Logic : Gửi trạng thái mới
+Logic -> DB : Cập nhật trạng thái
+DB --> Logic : Xác nhận cập nhật
+
+Driver -> UI : Cập nhật trạng thái (di chuyển)
+UI -> Logic : Gửi trạng thái mới
+Logic -> DB : Cập nhật trạng thái
+DB --> Logic : Xác nhận cập nhật
+
+@enduml

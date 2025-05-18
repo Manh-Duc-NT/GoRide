@@ -1,0 +1,25 @@
+@startuml admin-activity
+start
+
+repeat
+:Admin nhập thông tin đăng nhập;
+repeat while (Xác thực thành công?) is (không)
+
+  :Xem danh sách tài xế;
+  :Xem thông tin tài xế;
+  if ("Giấy tờ hợp lệ?") then (có)
+    :Admin phê duyệt tài xế;
+  else (không)
+    if ("Sai giấy tờ")
+    :Chặn;
+    else
+    :Yêu cầu bổ sung;
+    endif
+
+  endif
+  :Cập nhật trạng thái tài khoản;
+  :Thông báo cho tài xế;
+
+
+stop
+@enduml

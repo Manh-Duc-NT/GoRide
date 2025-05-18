@@ -1,0 +1,28 @@
+@startuml Pay-Sequence
+actor "Khách hàng/Tài xế" as User
+participant "UI (Ứng dụng di động)" as UI
+participant "Xử lý (Cloud Functions)" as Backend
+participant "Database (Firestore)" as DB
+
+User -> UI : Xác nhận hoàn thành (Tài xế)
+UI -> Backend : Gửi yêu cầu hoàn thành
+Backend -> DB : Cập nhật trạng thái đơn hàng
+DB --> Backend : Xác nhận cập nhật
+Backend --> UI : Thông báo hoàn thành (Khách hàng)
+UI -> User : Hiển thị yêu cầu thanh toán
+
+User -> UI : Chọn phương thức thanh toán
+UI -> Backend : Gửi yêu cầu thanh toán
+
+alt Thanh toán không tiền mặt
+    Backend -> "Payment Gateway" : Gửi yêu cầu đến cổng thanh toán
+    "Payment Gateway" --> Backend : Xác nhận thanh toán
+else Thanh toán tiền mặt
+    Backend -> DB : Ghi nhận trạng thái
+end
+
+Backend -> DB : Lưu dữ liệu thanh toán
+DB --> Backend : Xác nhận lưu
+Backend --> UI : Gửi hóa đơn
+UI -> User : Hiển thị hóa đơn
+@enduml

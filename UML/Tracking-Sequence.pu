@@ -1,0 +1,20 @@
+@startuml Tracking-Sequence
+actor "Khách hàng" as User
+participant "UI (Ứng dụng di động)" as UI
+participant "Xử lý (Cloud Functions)" as Xuly
+participant "Database (Realtime Database)" as DB
+
+User -> UI : Mở giao diện chuyến đi
+UI -> Xuly : Yêu cầu dữ liệu vị trí tài xế
+Xuly -> DB : Lấy vị trí tài xế
+DB --> Xuly : Trả về toạ độ
+Xuly --> UI : Gửi dữ liệu vị trí
+UI -> User : Hiển thị bản đồ với vị trí/lộ trình
+
+loop
+    DB -> Xuly : Lấy vị trí tài xế mới
+    Xuly --> DB : Trả về toạ độ
+    Xuly -> UI : Gửi vị trí mới
+    UI -> User : Cập nhật bản đồ
+end
+@enduml

@@ -1,0 +1,38 @@
+{
+  "expo": {
+    "name": "GoRide",
+    "slug": "GoRide",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.goride.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.goride.app"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "@rnmapbox/maps",
+        {
+          "mapboxPublicKey": "pk.eyJ1IjoiaHVuZ3ZvIiwiYSI6ImNtMWx6M3RqMjA2NmUybHE3cW41Z2Vtb2QifQ.QSjh-vrcPNt2ukdTBmoIAw"
+        }
+      ]
+    ]
+  }
+}
