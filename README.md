@@ -73,7 +73,7 @@ Làm theo các hướng dẫn sau để có một bản sao của dự án và c
 
 1.  **Clone repository về máy:**
     ```bash
-    git clone https://github.com/..../GoRide.git 
+    git clone https://github.com/Manh-Duc-NT/GoRide 
     cd GoRide
     ```
     Hoặc giải nén tệp nén chứa dự án
