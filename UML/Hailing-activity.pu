@@ -1,19 +1,56 @@
 @startuml Hailing-activity
 
+|Khách hàng|
 start
+:Khởi động ứng dụng;
+:Bấm vào dịch vụ gọi xe;
 
-:Khách hàng nhập điểm đón/đến;
-: Hệ thống lấy vị trí khách hàng;
-repeat
-if (Tìm thấy tài xế?) then (có)
-    :Gửi thông báo đến tài xế;
-    else (không)
-    stop
-    endif
-repeat while (Tài xế chấp nhận) is (không)
+|Hệ thống|
+:Hệ thống lấy vị trí qua Maps API;
+:Truy xuất danh sách tài xế từ Firestore;
+:Tìm tài xế phù hợp (dựa trên khoảng cách & trạng thái);
+:Hiển thị các tài xế đang ở gần khách hàng;
 
-:Cập nhật trạng thái đơn hàng;
-:Xác nhận đơn hàng;
+|Khách hàng|
+:Chọn điểm đến, điểm đón;
+
+|Hệ thống|
+:Gửi thông báo yêu cầu đến tài xế qua FCM;
+
+|Tài xế|
+:Nhận thông báo đặt xe;
+if (Tài xế chấp nhận?) then (Có)
+  :Xác nhận nhận chuyến;
+|Hệ thống|
+  :Cập nhật trạng thái 'accepted' trong Firestore;
+else (Không)
+  :Từ chối chuyến;
+  |Hệ thống|
+
+  stop
+endif
+
+|Khách hàng|
+:Nhận thông tin tài xế (tên, sđt, loại xe);
+:Theo dõi vị trí tài xế trên bản đồ;
+
+|Hệ thống|
+:Realtime cập nhật vị trí tài xế (Realtime Database);
+:Maps API tính lộ trình;
+
+|Tài xế|
+:Đến nơi và hoàn thành chuyến đi;
+
+|Hệ thống|
+:Cập nhật trạng thái 'completed' trong Firestore;
+
+|Khách hàng|
+:Thanh toán và đánh giá;
+
+|Hệ thống|
+:Xử lý thanh toán qua cổng thanh toán;
+:Lưu thông tin giao dịch vào Firestore;
+:Tính phí ứng dụng và thuế;
+:Cộng thu nhập còn lại cho tài xế;
 stop
-
 @enduml
