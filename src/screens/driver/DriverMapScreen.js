@@ -418,7 +418,7 @@ export default function DriverMapScreen({ navigation, route }) {
           </TouchableOpacity>
           <View style={styles.rideInfo}>
             <Text style={styles.rideStatus}>
-              {rideStatus === 'accepted' ? 'Đang đến điểm đón' :
+              {rideStatus === 'accepted' ? 'Đang đến đón khách' :
                rideStatus === 'ongoing' ? 'Đang đến điểm đến' :
                'Hoàn thành'}
             </Text>
