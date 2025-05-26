@@ -703,7 +703,7 @@ export default function CustomerMapScreen({ navigation, route }) {
                 .setPopup(new mapboxgl.Popup({
                   offset: 25,
                   closeButton: false,
-                  closeOnClick: false
+                  closeOnClick: true
                 }).setHTML(\`
                   <div style="padding: 12px;">
                     <strong style="color: ${serviceInfo ? serviceInfo.color : '#4CAF50'}">

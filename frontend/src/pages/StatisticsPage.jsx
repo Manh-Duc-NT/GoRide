@@ -12,8 +12,11 @@ import {
   LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  scales,
+  Ticks
 } from 'chart.js';
+import { number } from 'yup';
 
 // Đăng ký các components cần thiết cho Chart.js
 ChartJS.register(
@@ -49,12 +52,12 @@ function StatisticsPage() {
   const fetchStatistics = async () => {
     try {
       setLoading(true);
-      
+
       // Fetch users statistics
       const usersQuery = query(collection(db, 'users'));
       const usersSnapshot = await getDocs(usersQuery);
       const users = usersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      
+
       const totalUsers = users.filter(user => user.role === 'customer').length;
       const totalDrivers = users.filter(user => user.role === 'driver').length;
 
@@ -66,7 +69,7 @@ function StatisticsPage() {
       const completedRides = rides.filter(ride => ride.status === 'completed');
       const totalRides = completedRides.length;
       const totalRevenue = completedRides.reduce((sum, ride) => sum + (ride.price || 0), 0);
-      
+
       // Calculate average rating
       const ratedRides = completedRides.filter(ride => ride.driverRating);
       const averageRating = ratedRides.length > 0
@@ -196,7 +199,7 @@ function StatisticsPage() {
             icon={FaUsers}
             color="bg-blue-500"
           />
-          
+
           <StatCard
             title="Tổng tài xế"
             value={stats.totalDrivers}
